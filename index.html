@@ -13,7 +13,7 @@
     <header>
         <div class="container">
             <div class="logo">
-                <h1>Study in<span>Asia</span></h1>
+                <img src="LOGO/Copy of logo.svg" alt="Study in Asia Logo" class="logo-img">
             </div>
             <nav>
                 <ul>
@@ -32,6 +32,11 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
+        <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.80/build/spline-viewer.js"></script>
+        <div class="spline-container">
+            <div class="spline-loading" id="splineLoading"></div>
+            <spline-viewer url="https://prod.spline.design/iiEQ84m4tTu94DgT/scene.splinecode"></spline-viewer>
+        </div>
         <div class="container">
             <div class="hero-content">
                 <h1>Join the Exclusive Study in Asia Agent Network</h1>
@@ -40,12 +45,6 @@
                     <a href="#join" class="btn btn-primary">Become an Agent</a>
                     <a href="#why-study-asia" class="btn btn-secondary">Learn More</a>
                 </div>
-            </div>
-            <div class="hero-grid">
-                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644" alt="Student 1">
-                <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f" alt="Student 2">
-                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1" alt="Student 3">
-                <img src="https://images.unsplash.com/photo-1529390079861-591de354faf5" alt="Student 4">
             </div>
         </div>
     </section>
@@ -159,6 +158,57 @@
                             </div>
                         </div>
                     </div>
+                    <div class="tab-pane" id="marketing">
+                        <div class="program-card">
+                            <div class="program-image">
+                                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Marketing Materials">
+                            </div>
+                            <div class="program-details">
+                                <h3>Professional Marketing Kit</h3>
+                                <p>Access our comprehensive suite of marketing materials designed to help you attract and convert prospective students.</p>
+                                <ul>
+                                    <li>Customizable brochures</li>
+                                    <li>Social media templates</li>
+                                    <li>Email marketing campaigns</li>
+                                    <li>Presentation templates</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="ai">
+                        <div class="program-card">
+                            <div class="program-image">
+                                <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="AI System">
+                            </div>
+                            <div class="program-details">
+                                <h3>AI-Powered Solutions</h3>
+                                <p>Leverage our cutting-edge AI technology to streamline your recruitment process and improve conversion rates.</p>
+                                <ul>
+                                    <li>Automated document verification</li>
+                                    <li>Smart student matching</li>
+                                    <li>Predictive analytics</li>
+                                    <li>24/7 chatbot support</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="training">
+                        <div class="program-card">
+                            <div class="program-image">
+                                <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Training">
+                            </div>
+                            <div class="program-details">
+                                <h3>Comprehensive Training Program</h3>
+                                <p>Get access to our extensive training resources to enhance your recruitment skills and knowledge.</p>
+                                <ul>
+                                    <li>Online certification courses</li>
+                                    <li>Weekly webinars</li>
+                                    <li>Market insights</li>
+                                    <li>Best practices guides</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -211,7 +261,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <h3>Study in<span>Asia</span></h3>
+                    <img src="LOGO/Copy of logo.svg" alt="Study in Asia Logo" class="logo-img">
                 </div>
                 <div class="footer-links">
                     <ul>
@@ -249,6 +299,47 @@
                 button.classList.add('active');
                 document.querySelector(`#${button.dataset.tab}`).classList.add('active');
             });
+        });
+        
+        // Spline viewer optimization
+        document.addEventListener('DOMContentLoaded', function() {
+            const splineViewer = document.querySelector('spline-viewer');
+            const loadingSpinner = document.getElementById('splineLoading');
+            
+            // Add event listener for when the Spline scene is loaded
+            splineViewer.addEventListener('load', function() {
+                console.log('Spline scene loaded successfully');
+                // Hide loading spinner when loaded
+                if (loadingSpinner) {
+                    loadingSpinner.style.display = 'none';
+                }
+                // Add a class to the container for any post-load animations
+                document.querySelector('.spline-container').classList.add('loaded');
+            });
+            
+            // Add error handling
+            splineViewer.addEventListener('error', function(e) {
+                console.error('Error loading Spline scene:', e);
+                // Hide loading spinner on error too
+                if (loadingSpinner) {
+                    loadingSpinner.style.display = 'none';
+                }
+                // Show a fallback or error message
+                const container = document.querySelector('.spline-container');
+                container.innerHTML += '<div class="spline-error">Unable to load 3D content. Please refresh the page.</div>';
+            });
+            
+            // Add responsive handling for mobile devices
+            function handleResize() {
+                // Adjust viewer settings based on screen size if needed
+                if (window.innerWidth < 768) {
+                    // Mobile optimizations can be added here
+                }
+            }
+            
+            window.addEventListener('resize', handleResize);
+            handleResize(); // Call once on load
+        });
         });
 
         // Form submission handling
